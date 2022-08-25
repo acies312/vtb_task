@@ -1,0 +1,28 @@
+---
+# tasks file for haproxy-role
+- name: Istall HAproxy
+  package:
+    name: haproxy
+    state: present
+
+- name: start HAprxy server
+  service:
+    name: haproxy
+    state: started
+    enabled: true
+
+- name: open ports
+  firewalld:
+    port: 80/tcp
+    state: enabled
+    permanent: true
+    immediate: true
+
+- name: copy configuration file for HAproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0644
+    # validate: haproxy -f %s -c -q
+  notify: restart haproxy
+

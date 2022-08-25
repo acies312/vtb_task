@@ -1,0 +1,30 @@
+---
+# tasks file for nginx-role
+
+- name: enable epel-release
+  package:
+    name: epel-release
+    state: present
+
+- name: install nginx
+  package:
+    name: nginx
+    state: present
+
+- name: start and enable httpd
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: disabling firewall
+  firewalld:
+    port: 80/tcp
+    state: enabled
+    permanent: true
+    immediate: true
+
+- name: create index.html using Jinja2
+  template:
+    src: index.j2
+    dest: /usr/share/nginx/html/index.html

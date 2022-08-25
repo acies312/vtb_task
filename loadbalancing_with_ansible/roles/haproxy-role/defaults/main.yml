@@ -1,0 +1,19 @@
+---
+# defaults file for haproxy-role
+
+# Frontend settings.
+ haproxy_frontend_name: 'hafrontend'
+ haproxy_frontend_bind_address: '*'
+ haproxy_frontend_port: 80
+ haproxy_frontend_mode: 'http'
+
+# Backend settings.
+ haproxy_backend_name: 'habackend'
+ haproxy_backend_balance_method: 'roundrobin'
+
+# List of backend servers.
+ haproxy_backend_servers:
+   - name: web1
+     address: 192.168.56.107:80
+   - name: web2
+     address: 192.168.56.106:80

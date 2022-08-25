@@ -1,0 +1,12 @@
+---
+# defaults file for haproxy-role
+
+# Frontend settings.
+ vrrp_instances_name: 'VI_01'
+ vrrp_instances_state: "{{ keepalived_role }}"
+ vrrp_instances_interface: 'enp0s8'
+ vrrp_instances_priority: "{{ keepalived_priority }}"
+ vrrp_instances_auth_type: 'PASS'
+ vrrp_instances_auth_pass: 'passw0rd'
+ vrrp_instances_virtual_ipaddress:
+   - '192.168.56.110'

@@ -1,0 +1,26 @@
+---
+# tasks file for keepalived-role
+
+- name: install keepalived
+  package:
+    name: keepalived
+    state: present
+
+- name: enable keepalived
+  service:
+    name: keepalived
+    state: started
+    enabled: true
+
+- name: add rich rule for keepalived
+  firewalld:
+    rich_rule: 'rule protocol value="vrrp" accept'
+    immediate: yes
+    permanent: yes
+    state: enabled 
+
+- name: configure keepalived
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
